@@ -96,7 +96,7 @@ namespace SatSolver
         }
         public override string ToString()
         {
-            return "(-" + formule.ToString() + ")";
+            return "-" + formule.ToString();
         }
         public bool Waarde(Valuatie v)
         {

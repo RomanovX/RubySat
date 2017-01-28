@@ -21,7 +21,7 @@ namespace SatSolver
                     // String invoer = new StreamReader("..\\..\\testcases\\voorbeeld.txt").ReadToEnd();   // met deze regel in plaats van de vorige kun je de invoer uit een file lezen
 
                     IFormule formule = Parser.ParseFormule(invoer);
-                    // Console.WriteLine(formule.ToString());  // deze regel kun je gebruiken om de parser te testen
+                    Console.WriteLine(formule.ToString());  // deze regel kun je gebruiken om de parser te testen
 
                     DateTime start = DateTime.Now;
                     Valuatie valuatie = Solver.Vervulbaar(formule);
@@ -29,7 +29,7 @@ namespace SatSolver
 
                     if (valuatie == null)
                         Console.WriteLine("UNSAT");
-                    else Console.WriteLine($"SAT\n{valuatie}");
+                    else Console.WriteLine("SAT\n" + valuatie);
 
                     // Console.WriteLine($"oplostijd: {(eind - start).Ticks / 1E7} seconde");   // deze regel kun je gebruiken om het solve-proces te timen
 
@@ -37,13 +37,13 @@ namespace SatSolver
                 catch (Exception exc)
                 {
                     // De parser kan exceptions opwerpen als de formule syntaxfouten bevat
-                    Console.WriteLine($"FOUT: {exc.Message}");
+                    Console.WriteLine("FOUT: " + exc.Message);
                 }
 
                 break;  // in de definitieve versie moet deze break staan, zodat er maar 1 formule wordt verwerkt.
                         // tijdens het testen kun je hem tijdelijk weghalen, zodat je meerdere formules na elkaar kunt proberen.
             }
-            // Console.ReadLine();   // in de definitieve versie moet dit weg, maar tijdens interactief testen voorkomt dit dat het window meteen wegflitst
+            Console.ReadLine();   // in de definitieve versie moet dit weg, maar tijdens interactief testen voorkomt dit dat het window meteen wegflitst
         }
     }
 }

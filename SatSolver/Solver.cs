@@ -47,6 +47,7 @@ namespace SatSolver
             {
                 //return ?;
             }
+            return null;
         }
 
         /* 

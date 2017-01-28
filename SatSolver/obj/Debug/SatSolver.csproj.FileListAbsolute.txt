@@ -2,3 +2,8 @@ C:\Users\pelru\Desktop\SatSolver\SatSolver\SatSolver\bin\Debug\SatSolver.exe.con
 C:\Users\mijn_\OneDrive\Documents\SatSolver\SatSolver\bin\Debug\SatSolver.exe.config
 C:\Users\mijn_\OneDrive\Documents\GitHub\RubySat\SatSolver\bin\Debug\SatSolver.exe.config
 C:\Users\pelru\OneDrive\Documenten\GitHub\RubySat\SatSolver\bin\Debug\SatSolver.exe.config
+C:\Users\mijn_\OneDrive\Documents\GitHub\RubySat\SatSolver\obj\Debug\SatSolver.csprojResolveAssemblyReference.cache
+C:\Users\mijn_\OneDrive\Documents\GitHub\RubySat\SatSolver\bin\Debug\SatSolver.exe
+C:\Users\mijn_\OneDrive\Documents\GitHub\RubySat\SatSolver\bin\Debug\SatSolver.pdb
+C:\Users\mijn_\OneDrive\Documents\GitHub\RubySat\SatSolver\obj\Debug\SatSolver.exe
+C:\Users\mijn_\OneDrive\Documents\GitHub\RubySat\SatSolver\obj\Debug\SatSolver.pdb
