@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace SatSolver
 {
@@ -22,6 +23,15 @@ namespace SatSolver
 
                     IFormule formule = Parser.ParseFormule(invoer);
                     Console.WriteLine(formule.ToString());  // deze regel kun je gebruiken om de parser te testen
+
+                    SortedSet<string> variabelen = new SortedSet<string>();
+                    formule.Verzamel(variabelen);
+
+                    //// Voor het testen van de Verzamel functionaliteit
+                    //foreach (string variabele in variabelen) {
+                    //    Console.WriteLine(variabele);
+                    //}
+                    
 
                     DateTime start = DateTime.Now;
                     Valuatie valuatie = Solver.Vervulbaar(formule);

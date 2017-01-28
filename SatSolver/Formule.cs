@@ -10,6 +10,8 @@ namespace SatSolver
         void Verzamel(ISet<string> set);
         string ToString();
         bool Waarde(Valuatie v);
+        bool KanWaar(Valuatie v);
+        bool KanOnwaar(Valuatie v);
 
         // TODO: Voeg aan de interface IFormule specificaties toe van overige methoden die nodig zijn in je methode Solver.Vervulbaar
     }
@@ -32,6 +34,18 @@ namespace SatSolver
         public bool Waarde(Valuatie v)
         { 
             return v.GeefWaarde(variabele);
+        }
+        public bool KanWaar(Valuatie v)
+        {
+            // Een propositie kan waar zijn als er nog geen valuatie aan is toegekend, of de valuatie waar is
+            if (!v.BevatVariabele(variabele)) return true;
+            return v.GeefWaarde(variabele);
+        }
+        public bool KanOnwaar(Valuatie v)
+        {
+            // Een propositie kan onwaar zijn als er nog geen valuatie aan is toegekend, of de valuatie onwaar is
+            if (!v.BevatVariabele(variabele)) return true;
+            return !v.GeefWaarde(variabele);
         }
     }
     
@@ -57,6 +71,16 @@ namespace SatSolver
         {
             return links.Waarde(v) && rechts.Waarde(v);
         }
+        public bool KanWaar(Valuatie v)
+        {
+            // Een conjuctie kan enkel waar zijn als beide elementen waar kunnen zijn
+            return links.KanWaar(v) && rechts.KanWaar(v);
+        }
+        public bool KanOnwaar(Valuatie v)
+        {
+            // Een conjuctie kan onwaar zijn als één of beide van de elementen onwaar kunnen zijn
+            return links.KanOnwaar(v) || rechts.KanOnwaar(v);
+        }
     }
 
     class Disjunctie : IFormule
@@ -81,6 +105,16 @@ namespace SatSolver
         {
             return links.Waarde(v) || rechts.Waarde(v);
         }
+        public bool KanWaar(Valuatie v)
+        {
+            // Een disjunctie kan waar zijn als één of beide van de elementen waar kunnen zijn
+            return links.KanWaar(v) || rechts.KanWaar(v);
+        }
+        public bool KanOnwaar(Valuatie v)
+        {
+            // Een disjunctie kan enkel onwaar zijn als beide elementen onwaar kunnen zijn
+            return links.KanOnwaar(v) && rechts.KanOnwaar(v);
+        }
     }
 
     class Negatie : IFormule
@@ -101,6 +135,16 @@ namespace SatSolver
         public bool Waarde(Valuatie v)
         {
             return !formule.Waarde(v);
+        }
+        public bool KanWaar(Valuatie v)
+        {
+            // Een negatie kan waar zijn als het element onwaar kan zijn
+            return formule.KanOnwaar(v);
+        }
+        public bool KanOnwaar(Valuatie v)
+        {
+            // Een negatie kan onwaar zijn als 
+            return formule.KanWaar(v);
         }
     }
 }
