@@ -44,7 +44,7 @@ namespace SatSolver
             {
                 if (resultaat != "")
                     resultaat += " ";
-                resultaat += $"{pair.Key}={pair.Value}";
+                resultaat += pair.Key + "=" + pair.Value;
             }
             return resultaat;
         }
