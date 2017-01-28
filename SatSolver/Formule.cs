@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SatSolver /* Hoi Ruby */
+namespace SatSolver
 {
     /*
      *  Deze interface beschrijft wat er mogelijk moet zijn met een formule
