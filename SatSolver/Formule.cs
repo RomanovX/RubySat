@@ -103,8 +103,4 @@ namespace SatSolver
             return !formule.Waarde(v);
         }
     }
-
-
-
-    // TODO: Maak verschillende klassen die de interface IFormule implementeren, voor de diverse soorten proposities die er bestaan
 }

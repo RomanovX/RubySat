@@ -69,7 +69,9 @@ namespace SatSolver
             IFormule e = ParseExpressie();
             SkipSpaces();
             if (cursor < lengte)
+            {
                 throw new Exception("Extra input op positie" + cursor + "(" + inhoud[cursor] + ")");
+            }
             return e;
         }
 
@@ -85,6 +87,7 @@ namespace SatSolver
         private IFormule ParseFactor()
         {
             SkipSpaces();
+
             if (cursor < lengte && inhoud[cursor] == '(')
             {
                 cursor++; // passeer het openingshaakje
@@ -94,26 +97,24 @@ namespace SatSolver
                 cursor++; // passeer het sluithaakje
                 return resultaat;
             }
-            else if (cursor < lengte && (inhoud[cursor] == '-' || inhoud[cursor] == '!' || inhoud[cursor] == '~'))
-            {
-                // TODO: zorg dat de parser ook een negatie kan herkennen
-                cursor += 1; ///schuif cursor 1 op, na negatie
-                IFormule n = ParseFactor();
-                return MaakNegatie(n);
-            }
-            else
-            {
-                // geen haakje, geen not-teken, dus dan moeten we een variabele herkennen
-                // TODO: zorg dat de parser ook een variabele kan herkennen
-                string variabele = "";
 
-                while (cursor < lengte && Char.IsLetterOrDigit(inhoud[cursor]))
-                {
-                    variabele += cursor;
-                    cursor += 1;
-                }
-                return MaakPropositie(variabele);
+            if (cursor < lengte && (inhoud[cursor] == '-' || inhoud[cursor] == '!' || inhoud[cursor] == '~'))
+            {
+                cursor += 1; // passeer het negatieteken
+                IFormule resultaat = ParseFactor();
+                return MaakNegatie(resultaat);
             }
+
+            // geen haakje, geen not-teken, dus dan moeten we een variabele herkennen
+            string variabele = "";
+
+            // Controleer alle opvolgende letters en cijfers en maak er een variabele van
+            while (cursor < lengte && Char.IsLetterOrDigit(inhoud[cursor]))
+            {
+                variabele += inhoud[cursor];
+                cursor += 1;
+            }
+            return MaakPropositie(variabele);
         }
 
         private IFormule ParseTerm()
@@ -147,25 +148,21 @@ namespace SatSolver
          */
         static IFormule MaakPropositie(string variabele)
         {
-            // TODO: schrijf de methode die een Propositie maakt
-            return new Variabele(variabele); ////??
+            return new Variabele(variabele);
         }
 
         static IFormule MaakNegatie(IFormule formule)
         {
-            // TODO: schrijf de methode die een Negatie maakt
-            return new Negatie(formule); ////weet niet zeker of dit goed is?
+            return new Negatie(formule);
         }
 
         static IFormule MaakConjunctie(IFormule links, IFormule rechts)
         {
-            // TODO: schrijf de methode die een Conjunctie maakt
             return new Conjunctie(links, rechts);
         }
 
         static IFormule MaakDisjunctie(IFormule links, IFormule rechts)
         {
-            // TODO: schrijf de methode die een Disjunctie maakt
             return new Disjunctie(links, rechts);
         }
     }
