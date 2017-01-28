@@ -1,0 +1,2 @@
+C:\Users\pelru\Desktop\SatSolver\SatSolver\SatSolver\bin\Debug\SatSolver.exe.config
+C:\Users\mijn_\OneDrive\Documents\SatSolver\SatSolver\bin\Debug\SatSolver.exe.config
