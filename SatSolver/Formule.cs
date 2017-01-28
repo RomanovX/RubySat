@@ -27,14 +27,14 @@ namespace SatSolver
         }
         public override string ToString()
         {
-            return ("(" + variabele + ")");
+            return variabele;
         }
         public bool Waarde(Valuatie v)
         { 
             return v.GeefWaarde(variabele);
         }
     }
-
+    
     class Conjunctie : IFormule
     {
         IFormule links;
@@ -51,8 +51,7 @@ namespace SatSolver
         }
         public override string ToString()
         {
-            string formule = ("(" + links.ToString() + "/\\" + rechts.ToString() + ")");
-            return formule;
+            return "(" + links.ToString() + "/\\" + rechts.ToString() + ")";
         }
         public bool Waarde(Valuatie v)
         {
@@ -76,12 +75,11 @@ namespace SatSolver
         }
         public override string ToString()
         {
-            string formule = ("(" + links.ToString() + "\\/" + rechts.ToString() + ")");
-            return formule;
+            return ("(" + links.ToString() + "\\/" + rechts.ToString() + ")");
         }
         public bool Waarde(Valuatie v)
         {
-            return links.Waarde(v) && rechts.Waarde(v);
+            return links.Waarde(v) || rechts.Waarde(v);
         }
     }
 
@@ -98,7 +96,7 @@ namespace SatSolver
         }
         public override string ToString()
         {
-            string formule2 = ("(-" + formule.ToString() + ")");
+            return "(-" + formule.ToString() + ")";
             return formule2;
         }
         public bool Waarde(Valuatie v)
