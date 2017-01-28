@@ -25,10 +25,10 @@ namespace SatSolver
 
 
     class Parser
-	{
-		private string inhoud;
-		private int    cursor;
-        private int    lengte;
+    {
+        private string inhoud;
+        private int cursor;
+        private int lengte;
 
         /*
          * Dit is de enige public methode in deze klasse: de methode ontleedt een string tot een formule.
@@ -45,12 +45,12 @@ namespace SatSolver
          * en initialiseert een "cursor" waarmee we kunnen aanwijzen tot hoe ver het ontleedproces gevorderd is.
 		 */
         private Parser(string s)
-		{
+        {
             inhoud = s;
             cursor = 0;
             lengte = s.Length;
-		}
-        
+        }
+
         /*
          * Deze hulpmethode zorgt ervoor dat de cursor eventuele extra spaties/tabs/newlines in de string passeert.
          */
@@ -59,7 +59,7 @@ namespace SatSolver
             while (cursor < lengte && char.IsWhiteSpace(inhoud[cursor]))
                 cursor++;
         }
-        
+
         /*
          * Deze methode start het recursieve ontleedproces op, 
          * en controleert na afloop of inderdaad de hele invoer is geconsumeerd.
@@ -69,7 +69,7 @@ namespace SatSolver
             IFormule e = ParseExpressie();
             SkipSpaces();
             if (cursor < lengte)
-                throw new Exception($"Extra input op positie {cursor} ({inhoud[cursor]})");
+                throw new Exception("Extra input op positie" + cursor + "(" + inhoud[cursor] + ")");
             return e;
         }
 
@@ -85,7 +85,7 @@ namespace SatSolver
         private IFormule ParseFactor()
         {
             SkipSpaces();
-            if (cursor<lengte && inhoud[cursor] == '(')
+            if (cursor < lengte && inhoud[cursor] == '(')
             {
                 cursor++; // passeer het openingshaakje
                 IFormule resultaat = ParseExpressie(); // tussen de haakjes mag een complete propositie staan
@@ -94,16 +94,25 @@ namespace SatSolver
                 cursor++; // passeer het sluithaakje
                 return resultaat;
             }
-            else if (cursor < lengte && (inhoud[cursor] == '-' || inhoud[cursor] == '!' || inhoud[cursor]=='~'))
+            else if (cursor < lengte && (inhoud[cursor] == '-' || inhoud[cursor] == '!' || inhoud[cursor] == '~'))
             {
                 // TODO: zorg dat de parser ook een negatie kan herkennen
-                return null;
+                cursor += 1; ///schuif cursor 1 op, na negatie
+                IFormule n = ParseFactor();
+                return MaakNegatie(n);
             }
             else
             {
                 // geen haakje, geen not-teken, dus dan moeten we een variabele herkennen
                 // TODO: zorg dat de parser ook een variabele kan herkennen
-                return null;
+                string variabele = "";
+
+                while (cursor < lengte && Char.IsLetterOrDigit(inhoud[cursor]))
+                {
+                    variabele += cursor;
+                    cursor += 1;
+                }
+                return MaakPropositie(variabele);
             }
         }
 
@@ -111,9 +120,9 @@ namespace SatSolver
         {
             IFormule f = ParseFactor();
             SkipSpaces();
-            if (cursor<lengte-1 && (inhoud[cursor]=='/' && inhoud[cursor+1]=='\\' || inhoud[cursor] == '&' && inhoud[cursor + 1] == '&'))
+            if (cursor < lengte - 1 && (inhoud[cursor] == '/' && inhoud[cursor + 1] == '\\' || inhoud[cursor] == '&' && inhoud[cursor + 1] == '&'))
             {
-                cursor+=2; // passeer het voegteken
+                cursor += 2; // passeer het voegteken
                 IFormule t = ParseTerm();
                 return MaakConjunctie(f, t);
             }
@@ -126,7 +135,7 @@ namespace SatSolver
             SkipSpaces();
             if (cursor < lengte - 1 && (inhoud[cursor] == '\\' && inhoud[cursor + 1] == '/' || inhoud[cursor] == '|' && inhoud[cursor + 1] == '|'))
             {
-                cursor +=2; // passeer het voegteken
+                cursor += 2; // passeer het voegteken
                 IFormule e = ParseExpressie();
                 return MaakDisjunctie(t, e);
             }
@@ -136,28 +145,28 @@ namespace SatSolver
         /*
          * Deze vier hulpmethoden maken een object aan voor de vier verschillende formule-vormen.
          */
-		static IFormule MaakPropositie(string variabele)
-		{
+        static IFormule MaakPropositie(string variabele)
+        {
             // TODO: schrijf de methode die een Propositie maakt
-            return null;
-		}
+            return new Variabele(variabele); ////??
+        }
 
-		static IFormule MaakNegatie(IFormule formule)
-		{
+        static IFormule MaakNegatie(IFormule formule)
+        {
             // TODO: schrijf de methode die een Negatie maakt
-            return null;
+            return new Negatie(formule); ////weet niet zeker of dit goed is?
         }
 
         static IFormule MaakConjunctie(IFormule links, IFormule rechts)
-		{
+        {
             // TODO: schrijf de methode die een Conjunctie maakt
-            return null;
+            return new Conjunctie(links, rechts);
         }
 
         static IFormule MaakDisjunctie(IFormule links, IFormule rechts)
-		{
+        {
             // TODO: schrijf de methode die een Disjunctie maakt
-            return null;
+            return new Disjunctie(links, rechts);
         }
     }
 }
