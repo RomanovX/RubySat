@@ -22,16 +22,17 @@ namespace SatSolver
                     // String invoer = new StreamReader("..\\..\\testcases\\voorbeeld.txt").ReadToEnd();   // met deze regel in plaats van de vorige kun je de invoer uit een file lezen
 
                     IFormule formule = Parser.ParseFormule(invoer);
-                    Console.WriteLine(formule.ToString());  // deze regel kun je gebruiken om de parser te testen
+                    //Console.WriteLine(formule.ToString());  // deze regel kun je gebruiken om de parser te testen
 
                     SortedSet<string> variabelen = new SortedSet<string>();
                     formule.Verzamel(variabelen);
 
                     //// Voor het testen van de Verzamel functionaliteit
-                    //foreach (string variabele in variabelen) {
+                    //foreach (string variabele in variabelen)
+                    //{
                     //    Console.WriteLine(variabele);
                     //}
-                    
+
 
                     DateTime start = DateTime.Now;
                     Valuatie valuatie = Solver.Vervulbaar(formule);
@@ -50,7 +51,7 @@ namespace SatSolver
                     Console.WriteLine("FOUT: " + exc.Message);
                 }
 
-                break;  // in de definitieve versie moet deze break staan, zodat er maar 1 formule wordt verwerkt.
+                //break;  // in de definitieve versie moet deze break staan, zodat er maar 1 formule wordt verwerkt.
                         // tijdens het testen kun je hem tijdelijk weghalen, zodat je meerdere formules na elkaar kunt proberen.
             }
             Console.ReadLine();   // in de definitieve versie moet dit weg, maar tijdens interactief testen voorkomt dit dat het window meteen wegflitst

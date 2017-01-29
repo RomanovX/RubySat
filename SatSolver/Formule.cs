@@ -12,8 +12,6 @@ namespace SatSolver
         bool Waarde(Valuatie v);
         bool KanWaar(Valuatie v);
         bool KanOnwaar(Valuatie v);
-
-        // TODO: Voeg aan de interface IFormule specificaties toe van overige methoden die nodig zijn in je methode Solver.Vervulbaar
     }
 
     class Variabele : IFormule

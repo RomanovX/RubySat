@@ -60,7 +60,7 @@ namespace SatSolver
                 {
                     for (int n = 1; n <= 9; n++)
                     {
-                        if (this.GeefWaarde($"x{y}{x}{n}"))
+                        if (this.GeefWaarde("x" + y + x + n))
                             result += n;
                     }
                     result += " ";
