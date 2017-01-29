@@ -48,26 +48,5 @@ namespace SatSolver
             }
             return resultaat;
         }
-
-        // Geeft een alternatieve stringrepresentatie van deze valuatie terug.
-        // De valuatie moet variabelen x{y}{x}{n} bevatten, die True zijn als in de Sudoku het cijfer n in hokje (y,x) is ingevuld
-        public string ToSudokuString()
-        {
-            string result = "";
-            for (int y = 0; y < 9; y++)
-            {
-                for (int x = 0; x < 9; x++)
-                {
-                    for (int n = 1; n <= 9; n++)
-                    {
-                        if (this.GeefWaarde("x" + y + x + n))
-                            result += n;
-                    }
-                    result += " ";
-                }
-                result += "\n";
-            }
-            return result;
-        }
     }
 }

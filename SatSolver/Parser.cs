@@ -2,28 +2,6 @@
 
 namespace SatSolver
 {
-    /*
-     * Met een Parser-object kun je een formule uit de propositielogica ontleden.
-     * De invoer is een string met een tekst-representatie van de formule, 
-     * waarbij het "en"-voegteken aangeduid met "/\" , het "of"-voegteken met "\/" en het "not"-teken met "-"
-     * De propositie-variabelen bestaan uit letters en cijfers, bijvoorbeeld "x", "hoi", "x23", "1", "45b1"
-     * Mogelijke formules zijn bijvoorbeeld:
-     *      x
-     *      (x/\-y)
-     *      ((a1/\a2)\/a3)
-     * Voor de leesbaarheid mogen er extra spaties in de string staan:
-     *      ( (p\/q) /\ -p )
-     * De voegtekens mogen in plaats van met \/, /\, en -, ook worden aangeduid met de C#-notatie ||, && en !
-     *      ( (p||q) && !p )
-     * Je mag de haakjes desgewenst weglaten. In dat geval hangen de ontleedbomen naar rechts, dus
-     *      x/\y/\z         wordt herkend als    (x /\ (y/\z))
-     * Bovendien hebben de operatoren prioriteit: /\ gaat voor \/, zoals vermenigvuldigen voor optellen gaat:
-     *      x/\y\/a/\b      wordt herkend als    ( (x/\y) \/ (a/\b) )
-     * Met haakjes kun je de prioriteiten toch anders regelen:
-     *      x/\(y\/a)/\b    wordt herkend als    (x /\ ( (y\/a) /\ b))
-     */
-
-
     class Parser
     {
         private string inhoud;
