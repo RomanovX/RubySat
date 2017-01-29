@@ -48,7 +48,6 @@ namespace SatSolver
             if (resultaat != null) return resultaat;
             resultaat = VervulbaarVoorWaarde(formule, variabelen, valuatie, var, false);
             if (resultaat != null) return resultaat;
-            variabelen.Add(var);
             return null;
         }
 
